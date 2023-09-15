@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% block body%}
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+<h1 class="w3-content">All members</h5>
+<div class="container w3-content">
+    <table>
+     
+      <br>
+        <tr>
+          <th>Member Id</th>
+          <th>Full Name</th>
+          
+        </tr>
+        {% for i in members%}
+        <tr>
+            <td>{{i.id}}</td>
+          <td>{{i.name}}</td>
+          
+        </tr>
+        {% endfor %}
+       <hr>
+        <form method="post">{% csrf_token%}
+          <Input placeholder="Enter Name" type="text" name="name" required></th>
+          <button type="submit" >Add New Member</button></th>
+      </form><hr>
+      </table>
+     
+</div>
+{% endblock%}

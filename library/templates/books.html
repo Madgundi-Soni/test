@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% block body%}
+
+<h2>Books</h2>
+<style>
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #009688;
+      color: white;
+    }
+    </style>
+
+<h3 id="msg" style="color: red;display: none;">Please enter one of any field.</h3>
+<table id="import">
+ 
+  <tr>
+    <tr><input placeholder="Enter page" id="page" type="number"></tr>
+    <tr><input placeholder="Enter title" id="title" type="text"></tr>
+    <tr><input placeholder="Enter authors" id="authors" type="text"></tr>
+    <tr><input placeholder="Enter isbn" id="isbn" type="text"></tr>
+    <tr><input placeholder="Enter publisher" id="publisher" type="text"></tr>
+    <tr><input placeholder="Enter num of books" id="num" type="number"></tr>
+    <tr><button onclick="import_book()">Import books</button></tr>
+  </tr>
+  
+  </table>
+  <br><br>
+<table id="customers">
+  
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>isbn</th>
+    <th>Language</th>
+    <th>Published_Date</th>
+    
+  </tr>
+  {% for i in books %}
+  <a href="">
+  <tr>
+    <td>{{i.id}}</td>
+    <td>{{i.title}}</td>
+    <td>{{i.authors}}</td>
+    <td>{{i.isbn}}</td>
+    <td>{{i.language_code}}</td>
+    <td>{{i.publication_date}}</td>
+  </tr>
+</a>
+  {% endfor %}
+
+</table>
+
+
+<script>
+  function import_book(){
+    page=document.getElementById('page').value
+    title=document.getElementById('title').value
+    authors=document.getElementById('authors').value
+    isbn=document.getElementById('isbn').value
+    publisher=document.getElementById('publisher').value
+    num=document.getElementById('num').value
+    url=window.location.origin
+    console.log('-----',url)
+    if(page!='' || title!='' || authors!='' || isbn!='' || publisher!=''){
+    fetch(`${url}/library/get_frappe_books?page=${page}&title=${title}&authors=${authors}&isbn=${isbn}&publisher=${publisher}&num=${num}`);
+    console.log('-----www')
+  }else{
+    console.log('-----www33')
+    document.getElementById('msg').style.display='block';
+  }
+
+    // window.location
+  }
+</script>
+{%endblock%}
